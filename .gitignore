@@ -4,6 +4,6 @@
 *.pro.user
 
 /.idea
-/.idea/
+/chap*/.idea
 
 *.pyc
