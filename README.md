@@ -5,9 +5,9 @@ by *Jiangxumin*
 
 
 ### 1. Getting Started
--        chap01/age
 -        chap01/hello
 -        chap01/quit
+-        chap01/age
 
 ### 2. Creating Dialogs
 -        chap02/find
