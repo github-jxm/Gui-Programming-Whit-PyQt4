@@ -1,4 +1,7 @@
-from PyQt4.QtCore import SIGNAL, SLOT, QString
+#!/usr/bin/env python
+#coding=utf-8
+
+from PyQt4.QtCore import SIGNAL, SLOT, QString,pyqtSlot, QMetaObject, Qt
 from PyQt4.QtGui import QDialog, QLabel, QLineEdit
 from PyQt4.QtGui import   QCheckBox, QPushButton
 from PyQt4.QtGui import QHBoxLayout,QVBoxLayout
@@ -20,8 +23,15 @@ class FindDialog(QDialog):
 
         closeButton =  QPushButton(str("Close"))
 
-        self.connect(self.lineEdit, SIGNAL("textChanged(QSstring)"),
-                self, SLOT(self.enableFindButton("QSstring")))
+        #--------------------------------------------------------
+        # 1. 连接的槽 必须 指定  @pyqtSlot(QString)
+        self.connect(self.lineEdit, SIGNAL("textChanged(QString)"),
+                     self, SLOT("enableFindButton(QString)"))
+        # 2. 不必指定 @pyqtSlot(QString)
+        # self.connect(self.lineEdit, SIGNAL("textChanged(QString)"),
+        #               self.enableFindButton)
+        #---------------------------------------------------------
+
         self.connect(self.findButton, SIGNAL("clicked()"),
                 self, SLOT("findClicked()"))
         self.connect(closeButton, SIGNAL("clicked()"),
@@ -46,15 +56,24 @@ class FindDialog(QDialog):
         mainLayout.addLayout(rightLayout)
         self.setLayout(mainLayout)
 
+
         self.setWindowTitle(str("Find"))
         self.setFixedHeight(self.sizeHint().height())
 
+    @pyqtSlot()
     def findClicked(self):
         text = self.lineEdit.text()
         # Qt.CaseSensitivity cs =
         #         caseCheckBox.isChecked() ? Qt.CaseSensitive
         #                                   : Qt.CaseInsensitive
         #
+        cs = None
+        if self.caseCheckBox.isChecked() :
+            print "case"
+            cs = Qt.CaseSensitive
+        else:
+            print ""
+            cs = Qt.CaseInsensitive
 
         if self.backwardCheckBox.isChecked():
             pass
@@ -63,7 +82,10 @@ class FindDialog(QDialog):
             pass
             # self.emit findNext(text, cs)
 
+    @pyqtSlot(QString)
     def enableFindButton(self,text):
+        print type(text),":",len(text)
+        print(text)
         t = QString(text)
         self.findButton.setEnabled(not t.isEmpty())
 
