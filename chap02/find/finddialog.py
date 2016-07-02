@@ -37,6 +37,7 @@ class FindDialog(QDialog):
         self.connect(closeButton, SIGNAL("clicked()"),
                 self, SLOT("close()"))
 
+        #------------- 布局 -------------------------
         topLeftLayout =  QHBoxLayout()
         topLeftLayout.addWidget(self.label)
         topLeftLayout.addWidget(self.lineEdit)
@@ -49,24 +50,22 @@ class FindDialog(QDialog):
         rightLayout =  QVBoxLayout()
         rightLayout.addWidget(self.findButton)
         rightLayout.addWidget(closeButton)
-        rightLayout.addStretch()
+        rightLayout.addStretch()  # 添加 分割 符号
 
         mainLayout =  QHBoxLayout()
         mainLayout.addLayout(leftLayout)
         mainLayout.addLayout(rightLayout)
         self.setLayout(mainLayout)
-
+        #-------------------------------
 
         self.setWindowTitle(str("Find"))
+        # 设置 固定 高度
+        # sizeHint().height() 返回一个 窗口 "理想"的尺寸
         self.setFixedHeight(self.sizeHint().height())
 
     @pyqtSlot()
     def findClicked(self):
         text = self.lineEdit.text()
-        # Qt.CaseSensitivity cs =
-        #         caseCheckBox.isChecked() ? Qt.CaseSensitive
-        #                                   : Qt.CaseInsensitive
-        #
         cs = None
         if self.caseCheckBox.isChecked() :
             print "case"
