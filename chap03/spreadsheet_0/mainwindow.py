@@ -12,6 +12,9 @@ from sortdialog import SortDialog
 #include "sortdialog.h"
 #include "spreadsheet.h"
 
+
+import spreadsheet_rc
+
 class MainWindow(QMainWindow):
     def __init__(self,parent=None):
         super(MainWindow, self).__init__(parent)
@@ -21,16 +24,16 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon(":/images/icon.png"))
         self.setCurrentFile("")
 
-    def createActions(self):
-        pass
-    def createMenus(self):
-        pass
-    def createContextMenu(self):
-        pass
-    def createToolBars(self):
-        pass
-    def createStatusBar(self):
-        pass
+    # def createActions(self):
+    #     pass
+    # def createMenus(self):
+    #     pass
+    # def createContextMenu(self):
+    #     pass
+    # def createToolBars(self):
+    #     pass
+    # def createStatusBar(self):
+    #     pass
 
 
     def closeEvent(self,event):
@@ -506,3 +509,12 @@ class MainWindow(QMainWindow):
         pass
         # return QFileInfo(fullFileName).fileName()
 
+if __name__ == "__main__":
+    from  PyQt4.QtGui import QApplication
+    import sys
+    app = QApplication(sys.argv)
+
+    win = MainWindow()
+    win.show()
+
+    app.exec_()
