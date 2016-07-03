@@ -1,7 +1,8 @@
-#include <QtGui>
+#!/usr/bin/env python
 
 #include "cell.h"
 #include "spreadsheet.h"
+from cell import Cell
 
 Spreadsheet::Spreadsheet(QWidget *parent)
     : QTableWidget(parent)

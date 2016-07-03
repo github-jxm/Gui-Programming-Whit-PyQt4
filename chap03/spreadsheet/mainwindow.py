@@ -1,12 +1,16 @@
-#include <QtGui>
+#!/usr/bin/env python
+#coding=utf-8
 
 #include "finddialog.h"
+from PyQt4.QtGui import QMainWindow
+from finddialog import FindDialog
+
 #include "gotocelldialog.h"
 #include "mainwindow.h"
 #include "sortdialog.h"
 #include "spreadsheet.h"
 
-MainWindow::MainWindow()
+class MainWindow(QMainWindow):
 {
     spreadsheet = new Spreadsheet;
     setCentralWidget(spreadsheet);
