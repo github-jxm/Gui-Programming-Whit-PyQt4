@@ -1,21 +1,24 @@
 #!/usr/bin/env python
 #coding=utf8
 
-#include "cell.h"
-#include "spreadsheet.h"
+
 from PyQt4.QtCore import QChar, QString, pyqtSlot
 from PyQt4.QtGui import QWidget,QTableWidget
 # from cell import Cell
+
+#include "cell.h"
+#include "spreadsheet.h"
 
 class Spreadsheet(QTableWidget):
     def __init__(self,parent=None):
         super(Spreadsheet, self).__init__(parent)
 
         # 临时
-        self.setRowCount(10)
-        self.setColumnCount(5)
+        self.setRowCount(3)
+        self.setColumnCount(2)
 
         self.autoRecalc = True
+
         #
         # setItemPrototype(new Cell);
         # setSelectionMode(ContiguousSelection);
@@ -169,32 +172,31 @@ class Spreadsheet(QTableWidget):
 
     @pyqtSlot()
     def paste(self):
-    #     QTableWidgetSelectionRange range = selectedRange();
-    #     QString str = QApplication::clipboard()->text();
-    #     QStringList rows = str.split('\n');
-    #     int numRows = rows.count();
-    #     int numColumns = rows.first().count('\t') + 1;
-    #
-    #     if (range.rowCount() * range.columnCount() != 1
-    #             && (range.rowCount() != numRows
-    #                 || range.columnCount() != numColumns)) {
-    #         QMessageBox::information(this, tr("Spreadsheet"),
-    #                 tr("The information cannot be pasted because the copy "
-    #                    "and paste areas aren't the same size."));
-    #         return;
-    #     }
-    #
-    #     for (int i = 0; i < numRows; ++i) {
-    #         QStringList columns = rows[i].split('\t');
-    #         for (int j = 0; j < numColumns; ++j) {
-    #             int row = range.topRow() + i;
-    #             int column = range.leftColumn() + j;
-    #             if (row < RowCount && column < ColumnCount)
-    #                 setFormula(row, column, columns[j]);
-    #         }
-    #     }
-    #     somethingChanged();
-    # }
+        # QTableWidgetSelectionRange range = selectedRange();
+        # QString str = QApplication::clipboard()->text();
+        # QStringList rows = str.split('\n');
+        # int numRows = rows.count();
+        # int numColumns = rows.first().count('\t') + 1;
+        #
+        # if (range.rowCount() * range.columnCount() != 1
+        #         && (range.rowCount() != numRows
+        #             || range.columnCount() != numColumns)) {
+        #     QMessageBox::information(this, tr("Spreadsheet"),
+        #             tr("The information cannot be pasted because the copy "
+        #                "and paste areas aren't the same size."));
+        #     return;
+        # }
+        #
+        # for (int i = 0; i < numRows; ++i) {
+        #     QStringList columns = rows[i].split('\t');
+        #     for (int j = 0; j < numColumns; ++j) {
+        #         int row = range.topRow() + i;
+        #         int column = range.leftColumn() + j;
+        #         if (row < RowCount && column < ColumnCount)
+        #             setFormula(row, column, columns[j]);
+        #     }
+        # }
+        # somethingChanged();
         pass
 
     def __del(self):

@@ -22,13 +22,13 @@ class MainWindow(QMainWindow):
         self.locationLabel = None
         self.formulaLabel = None
         self.recentFiles = None  # QStringList recentFiles;
-        self.curFile = None  # QString curFile;
+        self.curFile = None      # QString curFile;
 
         self.MaxRecentFiles = 5
         self.recentFileActions = [None] * self.MaxRecentFiles
         #
         self.separatorAction = None
-        #
+        # #
         self.fileMenu = None
         self.editMenu = None
         self.selectSubMenu = None
@@ -57,14 +57,14 @@ class MainWindow(QMainWindow):
         self.autoRecalcAction = None
         self.aboutAction = None
         self.aboutQtAction = None
-        self.qApp = QApplication([])
+        # self.qApp = QApplication([]) # 这样写 有问题
 
 
-        # self.createActions()
-        # self.createMenus()
-        # self.createContextMenu()
-        # self.createToolBars()
-        # self.createStatusBar()
+        self.createActions()
+        self.createMenus()
+        self.createContextMenu()
+        self.createToolBars()
+        self.createStatusBar()
 
         # self.readSettings()
 
@@ -106,6 +106,7 @@ class MainWindow(QMainWindow):
     def sort(self):
         pass
 
+    # 关于
     @pyqtSlot()
     def about(self):
         QMessageBox.about(self, str("About Spreadsheet"),
@@ -130,24 +131,28 @@ class MainWindow(QMainWindow):
     # 创建 Actions
     def createActions(self):
 
+        # 新建
         self.newAction = QAction(str("&New"), self)
         self.newAction.setIcon(QIcon(":/images/new.png"))
         self.newAction.setShortcut(QKeySequence.New)
         self.newAction.setStatusTip(str("Create a new spreadsheet file"))
         self.connect(self.newAction, SIGNAL("triggered()"), self, SLOT("newFile()"))
 
+        # 打开
         self.openAction = QAction(str("&Open..."), self)
         self.openAction.setIcon(QIcon(":/images/open.png"))
         self.openAction.setShortcut(QKeySequence.Open)
         self.openAction.setStatusTip(str("Open an existing spreadsheet file"))
         self.connect(self.openAction, SIGNAL("triggered()"), self, SLOT("open()"))
 
+        # 保存
         self.saveAction = QAction(str("&Save"), self)
         self.saveAction.setIcon(QIcon(":/images/save.png"))
         self.saveAction.setShortcut(QKeySequence.Save)
         self.saveAction.setStatusTip(str("Save the spreadsheet to disk"))
         self.connect(self.saveAction, SIGNAL("triggered()"), self, SLOT("save()"))
 
+        # 另存为
         self.saveAsAction = QAction(str("Save &As..."), self)
         self.saveAsAction.setStatusTip(str("Save the spreadsheet under a name"))
         self.connect(self.saveAsAction, SIGNAL("triggered()"), self, SLOT("saveAs()"))
@@ -157,12 +162,15 @@ class MainWindow(QMainWindow):
             self.recentFileActions[i].setVisible(False)
             self.connect(self.recentFileActions[i], SIGNAL("triggered()"),
                          self, SLOT("openRecentFile()"))
-
+        # 退出
         self.exitAction = QAction(str("E&xit"), self)
         self.exitAction.setShortcut(str("Ctrl+Q"))
         self.exitAction.setStatusTip(str("Exit the application"))
         self.connect(self.exitAction, SIGNAL("triggered()"), self, SLOT("close()"))
 
+        # -------------
+
+        # 剪切
         self.cutAction = QAction(str("Cu&t"), self)
         self.cutAction.setIcon(QIcon(":/images/cut.png"))
         self.cutAction.setShortcut(QKeySequence.Cut)
@@ -170,6 +178,7 @@ class MainWindow(QMainWindow):
                                         "to the clipboard"))
         self.connect(self.cutAction, SIGNAL("triggered()"), self.spreadsheet, SLOT("cut()"))
 
+        # 拷贝
         self.copyAction = QAction(str("&Copy"), self)
         self.copyAction.setIcon(QIcon(":/images/copy.png"))
         self.copyAction.setShortcut(QKeySequence.Copy)
@@ -177,6 +186,7 @@ class MainWindow(QMainWindow):
                                          "to the clipboard"))
         self.connect(self.copyAction, SIGNAL("triggered()"), self.spreadsheet, SLOT("copy()"))
 
+        # 黏贴
         self.pasteAction = QAction(str("&Paste"), self)
         self.pasteAction.setIcon(QIcon(":/images/paste.png"))
         self.pasteAction.setShortcut(QKeySequence.Paste)
@@ -203,7 +213,7 @@ class MainWindow(QMainWindow):
                                                  "current column"))
         self.connect(self.selectColumnAction, SIGNAL("triggered()"),
                 self.spreadsheet, SLOT("selectCurrentColumn()"))
-        #
+
         self.selectAllAction = QAction(str("&All"), self)
         self.selectAllAction.setShortcut(QKeySequence.SelectAll)
         self.selectAllAction.setStatusTip(str("Select all the cells in the "
@@ -249,8 +259,8 @@ class MainWindow(QMainWindow):
         # self.autoRecalcAction.setChecked(self.spreadsheet.autoRecalculate())
         self.autoRecalcAction.setStatusTip(str("Switch auto-recalculation on or "
                                                "off"))
-        self.connect(self.autoRecalcAction, SIGNAL("toggled(bool)"),
-                    self.spreadsheet, SLOT("setAutoRecalculate(bool)"))
+        # self.connect(self.autoRecalcAction, SIGNAL("toggled(bool)"),\
+                   # self.spreadsheet, SLOT("setAutoRecalculate(bool)"))
 
         self.aboutAction = QAction(str("&About"), self)
         self.aboutAction.setStatusTip(str("Show the application's About box"))
@@ -258,7 +268,7 @@ class MainWindow(QMainWindow):
 
         self.aboutQtAction = QAction(str("About &Qt"), self)
         self.aboutQtAction.setStatusTip(str("Show the Qt library's About box"))
-        self.connect(self.aboutQtAction, SIGNAL("triggered()"), self.qApp, SLOT("aboutQt()"))
+        # self.connect(self.aboutQtAction, SIGNAL("triggered()"), self.qApp, SLOT("aboutQt()"))
 
     # 创建 菜单栏
     def createMenus(self):
@@ -307,18 +317,16 @@ class MainWindow(QMainWindow):
 
     # 添加 上下文菜单,右键快捷菜单
     def createContextMenu(self):
+        pass
         self.spreadsheet.addAction(self.cutAction)
         self.spreadsheet.addAction(self.copyAction)
         self.spreadsheet.addAction(self.pasteAction)
         self.spreadsheet.setContextMenuPolicy(Qt.ActionsContextMenu)
-        pass
 
     def createToolBars(self):
-
         pass
 
     def createStatusBar(self):
-
         pass
 
     def readSettings(self):
@@ -332,12 +340,10 @@ class MainWindow(QMainWindow):
 
     # def loadFile(const QString &fileName)
     def loadFile(self, fileName):
-
         pass
 
     # def saveFile(const QString &fileName)
     def saveFile(self, fileName):
-
         pass
 
     # def setCurrentFile(const QString &fileName)
@@ -358,9 +364,6 @@ if __name__ == "__main__":
     import sys
 
     app = QApplication(sys.argv)
-
-    # app.aboutQt()
-
     win = MainWindow()
     win.show()
     app.exec_()
